@@ -2,11 +2,13 @@ package kr.co.jaeyeong.dto;
 
 import kr.co.jaeyeong.document.User2Document;
 import lombok.*;
+import org.springframework.data.annotation.Id;
 
+@Setter
 @Getter
 @ToString
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class User2DTO {
 
@@ -16,13 +18,15 @@ public class User2DTO {
     private int age;
 
 
-    public User2Document toDocument(){
+    public User2Document toDocument() {
+
         return User2Document.builder()
                 .uid(uid)
                 .name(name)
                 .hp(hp)
                 .age(age)
                 .build();
+
     }
 
 }

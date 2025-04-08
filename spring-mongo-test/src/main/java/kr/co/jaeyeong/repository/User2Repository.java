@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface User2Repository extends MongoRepository<User2Document, String> {
-    void deleteByUid(String uid);
 }

@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(value = "user2")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Document(value = "user2")
 public class User2Document {
 
     @Id
@@ -23,7 +23,8 @@ public class User2Document {
     private String hp;
     private int age;
 
-    public User2DTO toDTO(){
+
+    public User2DTO toDTO() {
 
         return User2DTO.builder()
                 .uid(uid)
@@ -33,6 +34,8 @@ public class User2Document {
                 .build();
 
     }
+
+
 
 
 }
