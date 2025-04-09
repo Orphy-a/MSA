@@ -1,18 +1,17 @@
 package kr.co.jaeyeong.document;
 
 import kr.co.jaeyeong.dto.User2DTO;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Data
+@Getter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Document(value = "user2")
+@Setter
 public class User2Document {
 
     @Id
@@ -24,18 +23,13 @@ public class User2Document {
     private int age;
 
 
-    public User2DTO toDTO() {
-
+    public User2DTO toDTO(){
         return User2DTO.builder()
                 .uid(uid)
                 .name(name)
                 .hp(hp)
                 .age(age)
                 .build();
-
     }
-
-
-
 
 }

@@ -1,6 +1,7 @@
 package kr.co.jaeyeong.service;
 
 import kr.co.jaeyeong.document.User2Document;
+import kr.co.jaeyeong.dto.User1DTO;
 import kr.co.jaeyeong.dto.User2DTO;
 import kr.co.jaeyeong.repository.User2Repository;
 import lombok.RequiredArgsConstructor;
@@ -8,41 +9,74 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
-@RequiredArgsConstructor
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class User2Service {
 
     private final User2Repository user2Repository;
 
+    public void save(User2DTO user2dto){
 
-    public void save(User2DTO user2DTO) {
+        User2Document user2document = user2dto.toDocument();
 
-        User2Document doc = user2DTO.toDocument();
-        log.info(user2DTO.toString());
-
-        user2Repository.save(doc);
+        user2Repository.save(user2document);
 
     }
 
-    public void findById(){}
+    public User2DTO findByUid(String uid){
+
+        Optional<User2Document> user2document = user2Repository.findByUid(uid);
+
+        log.info("user2document {}", user2document);
+
+        if(user2document.isPresent()){
+            User2DTO user2dto = user2document.get().toDTO();
+            return user2dto;
+        }
+
+        return null;
+
+    }
+
+    public void modify(User2DTO user2DTO){
+
+        String uid = user2DTO.getUid();
+
+        Optional<User2Document> optUser2 = user2Repository.findByUid(uid);
+
+        if(optUser2.isPresent()){
+
+            User2Document user2document = user2DTO.toDocument();
+            user2document.set_id(optUser2.get().get_id());
+
+            user2Repository.save(user2document);
+        }
+
+
+    }
+
 
     public List<User2DTO> findAll(){
 
-        List<User2Document> docs = user2Repository.findAll();
+        List<User2Document> user2Documents = user2Repository.findAll();
 
-        List<User2DTO> dtos = docs.stream().map((document)-> {
-            User2DTO dto = document.toDTO();
-            return dto;
+        List<User2DTO> user2DTOS = user2Documents.stream().map((document)->{
+            User2DTO user2dto = document.toDTO();
+            return user2dto;
         }).toList();
 
-        return dtos;
+        return user2DTOS;
 
     }
 
-    public void modify(){}
+    public void delete(String uid){
 
-    public void delete(){}
+        user2Repository.deleteByUid(uid);
+
+    }
+
 
 }

@@ -1,0 +1,21 @@
+
+spring:
+    application:
+        name: shoppingmall
+    kafka:
+        bootstrap-servers: localhost:9092
+    cloud:
+        stream:
+            kafka:
+                binder:
+                    brokers: localhost:9092
+            bindings:
+                order-out:
+                    destination: order-events
+                    content-type: application/json
+                payment-out:
+                    destination: payment-events
+                    content-type: application/json
+                shipping-out:
+                    destination: shipping-events
+                    content-type: application/json
